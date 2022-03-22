@@ -2,6 +2,8 @@
 
 Rock Paper Scissor The Game practice with Javascript.
 
+update: added jQuery (change the branch to "jQuery" to view the code).
+
 note: Responsive only tested on mobile `(max-width: 600px)` and laptop `(max-width: 1360px)` using Firefox Browser. Above `(width: 1360px)` I am not sure if it still good or maybe it will broke.
 
 ## Overview
