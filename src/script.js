@@ -1,46 +1,40 @@
-// get player choice
-const action = document.querySelectorAll('.action');
-
-// show choice
-const showChoice = document.querySelectorAll('.show-choice');
-const showPlayerChoice = showChoice[0];
-const showComputerChoice = showChoice[1];
-
-// score
-const score = document.querySelectorAll('.score');
-const scorePlayer = score[0];
-const scoreComputer = score[1];
-
-const condition = document.querySelector('.vs');
-const resetBtn = document.getElementById('reset');
-
 // player choice button click
 // button action
-action.forEach((action) => {
-	action.addEventListener('click', function () {
-		// get and store button id
-		let actionId = action.getAttribute('id');
-		// show which button is clicked
-		showPlayerChoice.textContent = actionId;
-		// call inputHandler function
-		inputHandler(actionId);
-		// remove reset button disabled class
-		resetBtn.classList.remove('disabled');
+$(function () {
+	$('.action').each(function () {
+		$(this).click(function () {
+			// get and store button id
+			let actionId = $(this).attr('id');
+			// show which button is clicked
+			$('.player-stat .show-choice').text(actionId);
+			// call inputHandler function
+			inputHandler(actionId);
+			// remove reset button disabled class
+			$('#reset').removeClass('disabled');
+		});
 	});
 });
+
+// show choice
+const showPlayerChoice = $('.player-stat .show-choice');
+const showComputerChoice = $('.computer-stat .show-choice');
+
+// score
+const scorePlayer = $('.player-stat .score');
+const scoreComputer = $('.computer-stat .score');
 
 // handle input (button)
 const inputHandler = function (action) {
 	// call and store computerChoice function
 	let computer = computerChoice();
 	// call and store winCondition function
-	let result = winCondition(action, showComputerChoice.textContent);
+	let result = winCondition(action, $('.computer-stat .show-choice').text());
 	// call addScore function
 	addScore(result);
 	// call battleHistory function
 	battleHistory(action, result, computer);
 	// show the result whether win, lose or draw
-	condition.textContent = result;
+	$('.vs').text(result);
 };
 
 // computer action randomly generate
@@ -49,13 +43,13 @@ function computerChoice() {
 	const computer = Math.round(Math.random() * 2);
 	// assign rock, paper and scissor
 	if (computer == 0) {
-		showComputerChoice.textContent = 'rock';
+		showComputerChoice.text('rock');
 		return 'rock';
 	} else if (computer == 1) {
-		showComputerChoice.textContent = 'paper';
+		showComputerChoice.text('paper');
 		return 'paper';
 	} else {
-		showComputerChoice.textContent = 'scissor';
+		showComputerChoice.text('scissor');
 		return 'scissor';
 	}
 }
@@ -75,12 +69,12 @@ const addScore = function (win) {
 	}
 	// if draw do not increment score
 	if (win == 'Draw') {
-		scoreComputer.textContent;
-		scorePlayer.textContent;
+		scoreComputer.text();
+		scorePlayer.text();
 	}
 	// display the score
-	scorePlayer.textContent = player;
-	scoreComputer.textContent = computer;
+	scorePlayer.text(player);
+	scoreComputer.text(computer);
 };
 
 // check if the player win, lose or draw
@@ -120,10 +114,10 @@ function winCondition(player, computer) {
 }
 
 // create div element that contains battle log
-const logContainer = document.querySelector('.battle-history');
 function battleHistory(player, result, computer) {
 	let div = document.createElement('div');
 	div.className = 'row row-cols-3 justify-content-center text-muted log-item ';
+
 	// store player choices column element
 	const col1 = createPlayerCol(player);
 	// store result column element
@@ -131,11 +125,12 @@ function battleHistory(player, result, computer) {
 	// store computer choices column element
 	const col3 = createComputerCol(computer);
 
-	logContainer.appendChild(div);
+	$('.battle-history').append(div);
 	div.appendChild(col1);
 	div.appendChild(col2);
 	div.appendChild(col3);
 }
+
 // create div column element contains the player choices
 function createPlayerCol(player) {
 	let div = document.createElement('div');
@@ -159,15 +154,15 @@ function createComputerCol(computer) {
 }
 
 // reset button action
-resetBtn.addEventListener('click', function () {
+$('#reset').click(function () {
 	// call reset
 	resetScore();
 	// remove div alement that contains battle history
-	while (logContainer.hasChildNodes()) {
-		logContainer.removeChild(logContainer.firstChild);
+	if ($('.battle-history').children().length > 0) {
+		$('.battle-history').children().remove();
 	}
 	// add disabled class
-	this.className += ' disabled';
+	$(this).addClass(' disabled');
 });
 
 // reset value in the game
@@ -175,11 +170,10 @@ function resetScore() {
 	// set the score to 0
 	player = 0;
 	computer = 0;
-	for (let i = 0; i < 2; i++) {
-		score[i].textContent = 0;
-		// set choices display
-		showChoice[i].textContent = '';
-	}
+	$('.player-stat .score').text(0);
+	$('.computer-stat .score').text(0);
+	$('.player-stat .show-choice').text('');
+	$('.computer-stat .show-choice').text('');
 	// set the view result back
-	condition.textContent = 'vs';
+	$('.vs').text('vs');
 }
