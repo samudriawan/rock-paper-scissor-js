@@ -1,0 +1,80 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 1rem auto;
+  padding-top: 1rem;
+  max-width: 1360px;
+  height: 100vh;
+  background-color: #d4f1f4;
+}
+
+.scoreboard {
+  background-color: #003454;
+  color: #04d9ff;
+  border: 0.4em solid #3e4756;
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+.scoreboard .player-stat,
+.scoreboard .computer-stat {
+  min-width: 100px;
+  min-height: 160px;
+}
+
+.score {
+  font-size: 3rem;
+}
+
+.show-choice {
+  text-transform: uppercase;
+}
+
+.history {
+  max-width: 300px;
+  border: 0.2em solid #7122fa;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.battle-history {
+  max-height: 250px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.battle-history .log-item {
+  border-bottom: 1px solid white;
+}
+
+.action {
+  display: block;
+  padding: 0.2em 0.5em;
+  border: 0.2em solid #003454;
+  border-radius: 0.5em;
+  outline: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #003454;
+  background-color: #04d9ff;
+  transition: color 200ms, background-color 200ms;
+}
+.action:hover, .action:focus {
+  color: #04d9ff;
+  background-color: #003454;
+}
+
+@media screen and (min-width: 600px) {
+  .scoreboard {
+    margin-inline: auto;
+    width: 550px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
